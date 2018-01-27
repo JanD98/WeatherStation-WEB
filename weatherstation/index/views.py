@@ -8,4 +8,5 @@ def index(request):
     :param request:
     :return:
     """
+    # TODO: read measurement data from shared file share
     return HttpResponse("Hello, world!")
