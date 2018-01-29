@@ -32,3 +32,28 @@
     margin-bottom: 0;
     height: 100px;
 }
+
+ .navbar-brand {
+     position: absolute;
+     top: -44px;
+
+ }
+
+ .footer {
+     position: fixed;
+     left: 0;
+     bottom: 0;
+     width: 100%;
+     background-color: white;
+     color: black;
+     text-align: left;
+     box-shadow: 1px 1px 5px #555 inset;
+ }
+
+ html {
+  background: url(riodejaneiro.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
