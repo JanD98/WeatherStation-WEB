@@ -50,6 +50,24 @@
      box-shadow: 1px 1px 5px #555 inset;
  }
 
+
+ .transbox {
+    position: absolute;
+    text-align: center;
+    display: table;
+    margin: auto;
+    width: 100%;
+     top: 30%;
+ }
+
+ .transbox p {
+     margin: 5%;
+     font-weight: bold;
+     color: #FFFFFF;
+     font-size:18px;
+     font-family: Verdana;
+ }
+
  html {
   background: url(riodejaneiro.png) no-repeat center center fixed;
   -webkit-background-size: cover;
