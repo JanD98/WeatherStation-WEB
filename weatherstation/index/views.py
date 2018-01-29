@@ -9,4 +9,4 @@ def index(request):
     :return:
     """
     # TODO: read measurement data from shared file share
-    return HttpResponse("Hello, world!")
+    return render(request, 'index/index.html')
