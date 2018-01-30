@@ -1,0 +1,40 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'index/style.css' %}">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <title>Index</title>
+
+
+</head>
+<body>
+    <nav class="navbar navbar-default header">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBar">
+                        <span>☰</span>
+                    </button>
+                   <a class="navbar-brand navitems"><img src="{% static "index/logouniversidade.png" %}" alt="My image"/>
+        </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navBar">
+                <ul class="nav navbar-nav navbar-right navitems">
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'mainland' %}">Mainland</a></li>
+                    <li><a href="{% url 'sealevel' %}">Sealevel</a></li>
+                    <li><a href="{% url 'logout' %}">Log out</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+    <div class="footer">
+        <p>© UNMWDMI</p>
+    </div>
+</body>
+</html>
