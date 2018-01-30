@@ -50,6 +50,27 @@
      box-shadow: 1px 1px 5px #555 inset;
  }
 
+ .transboxlogin {
+    position: absolute;
+    text-align: center;
+    display: table;
+    margin: auto;
+    width: 100%;
+     top: 20%;
+     background-color: rgba(252,255,104,0.5);
+     border-color: black;
+     border-style: solid;
+     border-width: 5px;
+ }
+
+ .transboxlogin p {
+     margin: 5%;
+     font-weight: bold;
+     color: black;
+     font-size:18px;
+     font-family: Verdana;
+ }
+
 
  .transbox {
     position: absolute;
