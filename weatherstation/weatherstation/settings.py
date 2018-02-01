@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'sealevel',
     'userlogin',
     'userlogout',
+    'chartjs',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

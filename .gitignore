@@ -159,3 +159,4 @@ fabric.properties
 
 # celery beat schedule file
 celerybeat-schedule.*
+.idea/
