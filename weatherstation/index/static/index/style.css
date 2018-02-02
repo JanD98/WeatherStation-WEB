@@ -1,4 +1,4 @@
- .name {
+.name {
     font-family: Montserrat, 'sans-serif';
     font-size: 3.25rem;
     color: #171818;
@@ -8,7 +8,8 @@
     margin-top: .52rem;
     margin-left: 30rem;
 }
- .navbar-inner {
+
+.navbar-inner {
     min-height: 0px;
 }
 
@@ -23,76 +24,77 @@
     margin-top: .40rem;
     margin-right: 30rem;
 }
- .navbar-nav li a,
-.name{
+
+.navbar-nav li a,
+.name {
     line-height: 85px;
     padding-top: 0;
 }
- .navbar {
+
+.navbar {
     margin-bottom: 0;
     height: 100px;
 }
 
- .navbar-brand {
-     position: absolute;
-     top: -44px;
+.navbar-brand {
+    position: absolute;
+    top: -44px;
 
- }
+}
 
- .footer {
-     position: fixed;
-     left: 0;
-     bottom: 0;
-     width: 100%;
-     background-color: white;
-     color: black;
-     text-align: left;
-     box-shadow: 1px 1px 5px #555 inset;
- }
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    color: black;
+    text-align: left;
+    box-shadow: 1px 1px 5px #555 inset;
+}
 
- .transboxlogin {
+.transboxlogin {
     position: absolute;
     text-align: center;
     display: table;
     margin: auto;
     width: 100%;
-     top: 20%;
-     background-color: rgba(252,255,104,0.5);
-     border-color: black;
-     border-style: solid;
-     border-width: 5px;
- }
+    top: 20%;
+    background-color: rgba(252, 255, 104, 0.5);
+    border-color: black;
+    border-style: solid;
+    border-width: 5px;
+}
 
- .transboxlogin p {
-     margin: 5%;
-     font-weight: bold;
-     color: black;
-     font-size:18px;
-     font-family: Verdana;
- }
+.transboxlogin p {
+    margin: 5%;
+    font-weight: bold;
+    color: black;
+    font-size: 18px;
+    font-family: Verdana;
+}
 
-
- .transbox {
+.transbox {
     position: absolute;
     text-align: center;
     display: table;
     margin: auto;
     width: 100%;
-     top: 30%;
- }
+    top: 20%;
+}
 
- .transbox p {
-     margin: 5%;
-     font-weight: bold;
-     color: #FFFFFF;
-     font-size:18px;
-     font-family: Verdana;
- }
+.transbox p {
+    margin: 5%;
+    font-weight: bold;
+    color: black;
+    font-size: 18px;
+    font-family: Verdana;
+}
 
- html {
-  background: url(riodejaneiro.png) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+#map {
+    width: 100%;
+    height: 100vh;
+    background-color: grey;
+    margin-left: auto;
+    margin-right: auto;
 }
