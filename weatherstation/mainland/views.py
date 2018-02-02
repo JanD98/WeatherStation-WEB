@@ -3,22 +3,21 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
+from .datamanagement.datagatherer import DataGatherer
+
 
 class LineChartJSONView(BaseLineChartView):
     def get_labels(self):
         """Return 7 labels for the x-axis."""
-        return ["January", "February", "March", "April", "May", "June", "July"]
+        return ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "00:00"]
 
     def get_providers(self):
         """Return names of datasets."""
-        return ["Central", "Eastside", "Westside"]
+        return ["Temperature"]
 
     def get_data(self):
         """Return 3 datasets to plot."""
-
-        return [[75, 44, 92, 11, 44, 95, 35],
-                [41, 92, 18, 3, 73, 87, 92],
-                [87, 21, 94, 3, 90, 13, 65]]
+        return DataGatherer().readdata()
 
 
 line_chart = TemplateView.as_view(template_name='line_chart.html')
