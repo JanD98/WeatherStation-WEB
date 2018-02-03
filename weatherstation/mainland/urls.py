@@ -24,4 +24,5 @@ urlpatterns = [
         name='line_chart'),
     url(r'^line_chart/json/$', views.line_chart_json,
         name='line_chart_json'),
+    url(r'^download/', views.download, name='download')
 ]
