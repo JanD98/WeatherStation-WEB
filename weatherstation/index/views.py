@@ -1,13 +1,11 @@
-from django.http import HttpResponse
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
-@login_required(login_url='/login/')
-def index(request):
-    """
-    The home page of the weatherstation web app
-    :param request:
-    :return:
-    """
-    # TODO: read measurement data from shared file share
-    return render(request, 'index/index.html')
+
+def userlogin(request):
+    return render(request, 'userlogin.html')
+
+
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard.html')

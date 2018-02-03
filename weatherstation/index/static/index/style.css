@@ -1,3 +1,30 @@
+/* Element styling */
+button {
+    color: #FFF;
+    background-color: #cda61c;
+    border: 1px solid #ba951c;
+    padding: 5px 10px;
+}
+
+button:hover {
+    background-color: #ba951c;
+}
+
+/* Bootstrap overrides */
+.row.no-padding > [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/*.container-fluid {*/
+    /*height: auto;*/
+    /*width: 100%;*/
+    /*position: absolute;*/
+    /*top: 100px;*/
+    /*bottom: 0;*/
+    /*overflow: auto;*/
+/*}*/
+
 .name {
     font-family: Montserrat, 'sans-serif';
     font-size: 3.25rem;
@@ -7,10 +34,6 @@
     line-height: 1;
     margin-top: .52rem;
     margin-left: 30rem;
-}
-
-.navbar-inner {
-    min-height: 0px;
 }
 
 .navitems {
@@ -34,66 +57,40 @@
 .navbar {
     margin-bottom: 0;
     height: 100px;
+    overflow: hidden;
 }
 
 .navbar-brand {
-    position: absolute;
+    position: relative;
     top: -44px;
-
 }
 
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: white;
-    color: black;
-    text-align: left;
-    box-shadow: 1px 1px 5px #555 inset;
-}
-
-.transboxlogin {
-    position: absolute;
+.login-box {
     text-align: center;
-    display: table;
-    margin: auto;
-    width: 100%;
-    top: 20%;
     background-color: rgba(252, 255, 104, 0.5);
-    border-color: black;
-    border-style: solid;
-    border-width: 5px;
+    border: 5px solid black;
+    padding: 15px;
+    margin: 20px;
 }
 
-.transboxlogin p {
-    margin: 5%;
-    font-weight: bold;
-    color: black;
-    font-size: 18px;
-    font-family: Verdana;
-}
-
-.transbox {
-    position: absolute;
-    text-align: center;
-    display: table;
-    margin: auto;
+.login-box button {
     width: 100%;
-    top: 20%;
+    max-width: 200px;
+    font-size: 25px;
 }
 
-.transbox p {
-    margin: 5%;
+.login-box p {
+    margin: 20px;
     font-weight: bold;
     color: black;
     font-size: 18px;
-    font-family: Verdana;
+    font-family: Verdana, sans-serif;
 }
 
 #map {
     width: 100%;
-    height: 100vh;
+    min-height: 500px;
+    height: 100%;
     background-color: grey;
     margin-left: auto;
     margin-right: auto;
