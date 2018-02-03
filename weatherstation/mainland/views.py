@@ -25,7 +25,7 @@ line_chart = TemplateView.as_view(template_name='line_chart.html')
 line_chart_json = LineChartJSONView.as_view()
 
 
-@login_required(login_url='/login/')
+@login_required()
 def mainland(request):
     """
     The home page of the weatherstation web app

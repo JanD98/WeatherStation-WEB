@@ -21,12 +21,12 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navBar">
                 <span>☰</span>
             </button>
-            <a class="navbar-brand navitems"><img src="{% static "index/logouniversidade.png" %}" alt="My image"/>
+            <a class="navbar-brand navitems"><img src="{% static 'index/logouniversidade.png' %}" alt="My image"/>
             </a>
         </div>
         <div class="collapse navbar-collapse" id="navBar">
             <ul class="nav navbar-nav navbar-right navitems">
-                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="{% url 'mainland' %}">Mainland</a></li>
                 <li><a href="{% url 'sealevel' %}">Sealevel</a></li>
                 <li><a href="{% url 'logout' %}">Log out</a></li>
@@ -34,7 +34,9 @@
         </div>
     </div>
 </nav>
-{% block content %}
-{% endblock %}
+<div class="container-fluid">
+    {% block content %}
+    {% endblock %}
+</div>
 </body>
 </html>

@@ -32,8 +32,6 @@ INSTALLED_APPS = [
     'index',
     'mainland',
     'sealevel',
-    'userlogin',
-    'userlogout',
     'chartjs',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -119,4 +117,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/mainland'

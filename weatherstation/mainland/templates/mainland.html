@@ -1,4 +1,4 @@
-{% extends 'index/base.html' %}
+{% extends 'base.html' %}
 {% load staticfiles %}
 {% block head %}
     <!--[if lte IE 8]>
@@ -7,8 +7,8 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div class="col-sm-6">
+    <div class="row no-padding">
+        <div class="col-xs-12 col-sm-6">
             <div id="map"></div>
             <script>
 
@@ -71,7 +71,7 @@
 
             <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
             <script type="text/javascript">
-                $.get('{% url 'line_chart_json' %}', function (data) {
+                $.get("{% url 'line_chart_json' %}", function (data) {
                     var ctx = $("#mainland-charts").get(0).getContext("2d");
                     new Chart(ctx, {
                         type: 'line',

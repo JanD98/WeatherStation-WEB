@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block head %}
+<!--[if lte IE 8]>
+    <script src="{% static 'js/excanvas.js' %}"></script>
+<![endif]-->
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-6">
+            <p>Dashboard</p>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <p>Charts</p>
+        </div>
+    </div>
+{% endblock %}
