@@ -1,5 +1,8 @@
+import csv
+
 from chartjs.views.lines import BaseLineChartView
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
@@ -33,3 +36,15 @@ def mainland(request):
     """
     # TODO: read measurement data from shared file share
     return render(request, 'mainland.html')
+
+
+def download(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="chart-data.csv"'
+
+    wr = csv.writer(response, delimiter=';', lineterminator='\n')
+    wr.writerow(["Temperatures"])
+    for temperature in range(len(DataGatherer.chart_list)):
+        wr.writerow([DataGatherer.chart_list[temperature]])
+    return response

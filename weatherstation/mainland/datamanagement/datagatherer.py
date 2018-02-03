@@ -2,13 +2,15 @@ from .weatherstation_v1_pb2 import Measurement
 import random
 
 class DataGatherer:
+    chart_list = []
 
     def __init__(self):
         pass
 
     def readdata(self):
         measurement_list = []
-        chart_list = []
+        DataGatherer.chart_list = []
+
         # for datefolder in datefolders:
         #     for stationfolder in datefolder:
         #         for hourfile in stationfolder:
@@ -18,10 +20,7 @@ class DataGatherer:
             measurement.temperature = random.randint(0,40)
             measurement_list.append(measurement.temperature)
 
-
         for measurements in measurement_list:
-            chart_list.append(measurements)
+            DataGatherer.chart_list.append(measurements)
 
-        return [chart_list]
-
-
+        return [DataGatherer.chart_list]
