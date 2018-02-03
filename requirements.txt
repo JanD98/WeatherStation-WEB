@@ -1,2 +1,5 @@
 django=>2.0.1
 django-chartjs
+protobuf==3.5.1
+grpcio==1.8.4
+grpcio-tools==1.8.4
