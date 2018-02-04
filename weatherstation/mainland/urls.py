@@ -19,10 +19,13 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.mainland, name='mainland'),
-    # Line chart
-    url(r'^line_chart/$', views.line_chart,
-        name='line_chart'),
-    url(r'^line_chart/json/$', views.line_chart_json,
-        name='line_chart_json'),
+    # Line chart data
+    url(r'^temperature_chart/json/$', views.temperature_chart_json,
+        name='temperature_chart_json'),
+    url(r'^wind_chart/json/$', views.wind_chart_json,
+        name='wind_chart_json'),
+    url(r'^rainfall_chart/json/$', views.rainfall_chart_json,
+        name='rainfall_chart_json'),
+
     url(r'^download/', views.download, name='download')
 ]

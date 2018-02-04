@@ -4,27 +4,58 @@ from chartjs.views.lines import BaseLineChartView
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import TemplateView
 
 from .datamanagement.datagatherer import DataGatherer
 
 
-class LineChartJSONView(BaseLineChartView):
+class TemperatureChart(BaseLineChartView):
+
     def get_labels(self):
         """Return 7 labels for the x-axis."""
         return ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "00:00"]
 
     def get_providers(self):
         """Return names of datasets."""
-        return ["Temperature"]
+        return ["Temperature", "Temperature Sea", "Temperature Land"]
 
     def get_data(self):
         """Return 3 datasets to plot."""
-        return DataGatherer().readdata()
+        return DataGatherer().get_temperature_data()
 
 
-line_chart = TemplateView.as_view(template_name='line_chart.html')
-line_chart_json = LineChartJSONView.as_view()
+class WindChart(BaseLineChartView):
+
+    def get_labels(self):
+        """Return 7 labels for the x-axis."""
+        return ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "00:00"]
+
+    def get_providers(self):
+        """Return names of datasets."""
+        return ["Wind", "Wind Sea", "Wind Land"]
+
+    def get_data(self):
+        """Return 3 datasets to plot."""
+        return DataGatherer().get_wind_data()
+
+
+class RainfallChart(BaseLineChartView):
+
+    def get_labels(self):
+        """Return 7 labels for the x-axis."""
+        return ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "00:00"]
+
+    def get_providers(self):
+        """Return names of datasets."""
+        return ["Rainfall", "Rainfall Sea", "Rainfall Land"]
+
+    def get_data(self):
+        """Return 3 datasets to plot."""
+        return DataGatherer().get_rainfall_data()
+
+
+temperature_chart_json = TemperatureChart.as_view()
+wind_chart_json = WindChart.as_view()
+rainfall_chart_json = RainfallChart.as_view()
 
 
 @login_required()
@@ -43,8 +74,12 @@ def download(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="chart-data.csv"'
 
+    c = TemperatureChart()
+    data = DataGatherer.get_temperature_data()
+
     wr = csv.writer(response, delimiter=';', lineterminator='\n')
-    wr.writerow(["Temperatures"])
-    for temperature in range(len(DataGatherer.chart_list)):
-        wr.writerow([DataGatherer.chart_list[temperature]])
+    wr.writerow(c.get_providers())
+    for temperature_type in list(zip(*data)):
+        print(temperature_type)
+        wr.writerow(temperature_type)
     return response
