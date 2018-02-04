@@ -14,7 +14,7 @@
         <div class="col-xs-12 col-md-6">
             <h3>Temperature</h3>
             <canvas class="center-block" id="temperature-charts" width="500" height="500"></canvas>
-            <a href="{% url 'download' %}" class="btn btn-success btn-lg">
+            <a href="{% url 'downloadtemp' %}" class="btn btn-success btn-lg">
                 <span class="glyphicon glyphicon-download-alt"></span> Download
             </a>
         </div>
@@ -23,10 +23,16 @@
         <div class="col-xs-12 col-md-6">
             <h3>Wind</h3>
             <canvas class="center-block" id="wind-charts" width="500" height="500"></canvas>
+            <a href="{% url 'downloadwind' %}" class="btn btn-success btn-lg">
+                <span class="glyphicon glyphicon-download-alt"></span> Download
+            </a>
         </div>
         <div class="col-xs-12 col-md-6">
             <h3>Precipitation</h3>
             <canvas class="center-block" id="rainfall-charts" width="500" height="500"></canvas>
+            <a href="{% url 'downloadrain' %}" class="btn btn-success btn-lg">
+                <span class="glyphicon glyphicon-download-alt"></span> Download
+            </a>
         </div>
     </div>
     <script>
@@ -64,13 +70,34 @@
             };
 
             // Create the polyline and add the symbol via the 'icons' property.
-            var line = new google.maps.Polyline({
-                path: [{lat: -24.484895, lng: -41.855461}, {lat: -23.633221, lng: -43.387823}],
+            var line1 = new google.maps.Polyline({
+                path: [{lat: -35.484895, lng: -22.855461}, {lat: -25.633221, lng: -50.387823}],
                 icons: [{
                     icon: lineSymbol,
                     offset: '100%'
                 }],
                 map: map
+            });
+            var line2 = new google.maps.Polyline({
+                path: [{lat: -35.484895, lng: 0.855461}, {lat: -15.633221, lng: -50.387823}],
+                icons: [{
+                    icon: lineSymbol,
+                    offset: '100%'
+                }],
+                map: map
+            });
+            var line3 = new google.maps.Polyline({
+                path: [{lat: -35.484895, lng: -10.855461}, {lat: -20.633221, lng: -50.387823}],
+                icons: [{
+                    icon: lineSymbol,
+                    offset: '100%'
+                }],
+                map: map
+            });
+            var marker = new google.maps.Marker({
+              position: new google.maps.LatLng(-41.484895, -15.855461),
+              icon: 'http://icons.iconarchive.com/icons/icons-land/weather/48/Wind-Flag-Storm-icon.png',
+              map: map
             });
         }
 
