@@ -75,11 +75,11 @@ def download(request):
     response['Content-Disposition'] = 'attachment; filename="chart-data.csv"'
 
     c = TemperatureChart()
-
     data = DataGatherer.get_temperature_data()
 
     wr = csv.writer(response, delimiter=';', lineterminator='\n')
     wr.writerow(c.get_providers())
-    for temperature_type in data:
+    for temperature_type in list(zip(*data)):
+        print(temperature_type)
         wr.writerow(temperature_type)
     return response
