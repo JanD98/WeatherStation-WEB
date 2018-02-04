@@ -7,100 +7,131 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row no-padding">
+    <div class="row no-padding text-center">
         <div class="col-xs-12 col-sm-6">
             <div id="map"></div>
-            <script>
-
-                function initMap() {
-
-                    var map = new google.maps.Map(document.getElementById('map'), {
-                        zoom: 3,
-                        center: {lat: -25.45, lng: -54.833}
-                    });
-
-                    // Create an array of alphabetical characters used to label the markers.
-                    var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-                    // Add some markers to the map.
-                    // Note: The code uses the JavaScript Array.prototype.map() method to
-                    // create an array of markers based on a given "locations" array.
-                    // The map() method here has nothing to do with the Google Maps API.
-                    var markers = locations.map(function (location, i) {
-                        return new google.maps.Marker({
-                            position: location,
-                            label: labels[i % labels.length]
-                        });
-                    });
-
-                    // Add a marker clusterer to manage the markers.
-                    var markerCluster = new MarkerClusterer(map, markers,
-                        {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-
-                    // Define a symbol using a predefined path (an arrow)
-                    // supplied by the Google Maps JavaScript API.
-                    var lineSymbol = {
-                        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
-                    };
-
-                    // Create the polyline and add the symbol via the 'icons' property.
-                    var line = new google.maps.Polyline({
-                        path: [{lat: -24.484895, lng: -41.855461}, {lat: -23.633221, lng: -43.387823}],
-                        icons: [{
-                            icon: lineSymbol,
-                            offset: '100%'
-                        }],
-                        map: map
-                    });
-                }
-
-                var locations = [
-                    {lat: 2.833, lng: -60.7},//Brazil
-                    {lat: 2.067, lng: -50.85},//Brazil
-                    {lat: 0.033, lng: -51.05},//Brazil
-                    {lat: 0.05, lng: -51.067},//Brazil
-                    {lat: -3.033, lng: -60.05},//Brazil
-                    {lat: -1.383, lng: -48.483}, //Brazil
-                    {lat: -2.433, lng: -54.717}, //Brazil
-
-                    {lat: -25.25, lng: -57.517}, //Paraguay
-                    {lat: -25.45, lng: -54.833}, //Paraguay
-                    {lat: -25.75, lng: -56.433}, //Paraguay
-
-                    {lat: -22.1, lng: -65.6},//Argentina
-                    {lat: -23.15, lng: -64.316},//Argentina
-                    {lat: -22.65, lng: -63.817},//Argentina
-                    {lat: -24.383, lng: -65.083},//Argentina
-                    {lat: -24.85, lng: -65.483},//Argentina
-                    {lat: -24.7, lng: -60.583}, //Argentina
-                    {lat: -25.733, lng: -54.467} //Argentina
-                ]
-            </script>
-            <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-            </script>
-            <script async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgtKdwvX-RrZgkJL9UDZzOXKPk037ROcs&callback=initMap">
-            </script>
         </div>
         <div class="col-xs-12 col-md-6">
-            <canvas id="mainland-charts" width="500" height="500"></canvas>
-
-            <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
-            <script type="text/javascript">
-                $.get("{% url 'line_chart_json' %}", function (data) {
-                    var ctx = $("#mainland-charts").get(0).getContext("2d");
-                    new Chart(ctx, {
-                        type: 'line',
-                        data: data,
-                        options: {
-                            responsive: false
-                        }
-                    });
-                });
-            </script>
+            <h3>Temperature</h3>
+            <canvas class="center-block" id="temperature-charts" width="500" height="500"></canvas>
             <a href="{% url 'download' %}" class="btn btn-success btn-lg">
                 <span class="glyphicon glyphicon-download-alt"></span> Download
             </a>
         </div>
     </div>
+    <div class="row no-padding text-center">
+        <div class="col-xs-12 col-md-6">
+            <h3>Wind</h3>
+            <canvas class="center-block" id="wind-charts" width="500" height="500"></canvas>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <h3>Precipitation</h3>
+            <canvas class="center-block" id="rainfall-charts" width="500" height="500"></canvas>
+        </div>
+    </div>
+    <script>
+
+        function initMap() {
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 3,
+                center: {lat: -25.45, lng: -54.833},
+                mapTypeId: 'satellite'
+            });
+
+            // Create an array of alphabetical characters used to label the markers.
+            var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+            // Add some markers to the map.
+            // Note: The code uses the JavaScript Array.prototype.map() method to
+            // create an array of markers based on a given "locations" array.
+            // The map() method here has nothing to do with the Google Maps API.
+            var markers = locations.map(function (location, i) {
+                return new google.maps.Marker({
+                    position: location,
+                    label: labels[i % labels.length]
+                });
+            });
+
+            // Add a marker clusterer to manage the markers.
+            var markerCluster = new MarkerClusterer(map, markers,
+                {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
+            // Define a symbol using a predefined path (an arrow)
+            // supplied by the Google Maps JavaScript API.
+            var lineSymbol = {
+                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+            };
+
+            // Create the polyline and add the symbol via the 'icons' property.
+            var line = new google.maps.Polyline({
+                path: [{lat: -24.484895, lng: -41.855461}, {lat: -23.633221, lng: -43.387823}],
+                icons: [{
+                    icon: lineSymbol,
+                    offset: '100%'
+                }],
+                map: map
+            });
+        }
+
+        var locations = [
+            {lat: 2.833, lng: -60.7},//Brazil
+            {lat: 2.067, lng: -50.85},//Brazil
+            {lat: 0.033, lng: -51.05},//Brazil
+            {lat: 0.05, lng: -51.067},//Brazil
+            {lat: -3.033, lng: -60.05},//Brazil
+            {lat: -1.383, lng: -48.483}, //Brazil
+            {lat: -2.433, lng: -54.717}, //Brazil
+
+            {lat: -25.25, lng: -57.517}, //Paraguay
+            {lat: -25.45, lng: -54.833}, //Paraguay
+            {lat: -25.75, lng: -56.433}, //Paraguay
+
+            {lat: -22.1, lng: -65.6},//Argentina
+            {lat: -23.15, lng: -64.316},//Argentina
+            {lat: -22.65, lng: -63.817},//Argentina
+            {lat: -24.383, lng: -65.083},//Argentina
+            {lat: -24.85, lng: -65.483},//Argentina
+            {lat: -24.7, lng: -60.583}, //Argentina
+            {lat: -25.733, lng: -54.467} //Argentina
+        ]
+    </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgtKdwvX-RrZgkJL9UDZzOXKPk037ROcs&callback=initMap">
+    </script>
+    <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+    <script type="text/javascript">
+        $.get("{% url 'temperature_chart_json' %}", function (data) {
+            var ctx = $("#temperature-charts").get(0).getContext("2d");
+            new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: false
+                }
+            });
+        });
+        $.get("{% url 'wind_chart_json' %}", function (data) {
+            var ctx = $("#wind-charts").get(0).getContext("2d");
+            new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: false
+                }
+            });
+        });
+        $.get("{% url 'rainfall_chart_json' %}", function (data) {
+            var ctx = $("#rainfall-charts").get(0).getContext("2d");
+            new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: false
+                }
+            });
+        });
+    </script>
 {% endblock %}
