@@ -1,5 +1,285 @@
-{% extends 'index/../../../index/templates/base.html' %}
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block head %}
+    <!--[if lte IE 8]>
+    <script src="{% static 'js/excanvas.js' %}"></script>
+<![endif]-->
+{% endblock %}
 
 {% block content %}
-    <p>sealevel</p>
+    <div class="row no-padding text-center">
+        <div class="col-xs-12 col-sm-6">
+            <div id="map"></div>
+        </div>
+
+    </div>
+    <div class="row no-padding text-center">
+        <div class="col-xs-12 col-md-6">
+            <h3>Wind</h3>
+            <canvas class="center-block" id="wind-charts" width="500" height="500"></canvas>
+            <a href="{% url 'downloadwind' %}" class="btn btn-success btn-lg">
+                <span class="glyphicon glyphicon-download-alt"></span> Download
+            </a>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <h3>Precipitation</h3>
+            <canvas class="center-block" id="rainfall-charts" width="500" height="500"></canvas>
+            <a href="{% url 'downloadrain' %}" class="btn btn-success btn-lg">
+                <span class="glyphicon glyphicon-download-alt"></span> Download
+            </a>
+        </div>
+    </div>
+    <script>
+
+        function initMap() {
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 3,
+                center: {lat: -25.45, lng: -54.833},
+                mapTypeId: 'satellite'
+            });
+
+            // Create an array of alphabetical characters used to label the markers.
+            var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+            // Add some markers to the map.
+            // Note: The code uses the JavaScript Array.prototype.map() method to
+            // create an array of markers based on a given "locations" array.
+            // The map() method here has nothing to do with the Google Maps API.
+            var markers = locations.map(function (location, i) {
+                return new google.maps.Marker({
+                    position: location,
+                    label: labels[i % labels.length]
+
+                });
+            });
+
+            // Add a marker clusterer to manage the markers.
+            var markerCluster = new MarkerClusterer(map, markers,
+                {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
+            // Define a symbol using a predefined path (an arrow)
+            // supplied by the Google Maps JavaScript API.
+            var lineSymbol = {
+                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+            };
+
+            // Create the polyline and add the symbol via the 'icons' property.
+            var line1 = new google.maps.Polyline({
+                path: [{lat: -35.484895, lng: -22.855461}, {lat: -25.633221, lng: -50.387823}],
+                icons: [{
+                    icon: lineSymbol,
+                    offset: '100%'
+                }],
+                map: map
+            });
+            var line2 = new google.maps.Polyline({
+                path: [{lat: -35.484895, lng: 0.855461}, {lat: -15.633221, lng: -50.387823}],
+                icons: [{
+                    icon: lineSymbol,
+                    offset: '100%'
+                }],
+                map: map
+            });
+            var line3 = new google.maps.Polyline({
+                path: [{lat: -35.484895, lng: -10.855461}, {lat: -20.633221, lng: -50.387823}],
+                icons: [{
+                    icon: lineSymbol,
+                    offset: '100%'
+                }],
+                map: map
+            });
+            var marker = new google.maps.Marker({
+              position: new google.maps.LatLng(-41.484895, -15.855461),
+              icon: 'http://icons.iconarchive.com/icons/icons-land/weather/48/Wind-Flag-Storm-icon.png',
+              map: map
+            });
+        }
+
+        var locations = [
+                        {lat: 2.833, lng: -60.7}, // Brazil
+            {lat: 2.067, lng: -50.85},
+            {lat: 0.033, lng: -51.05},
+            {lat: 0.05, lng: -51.067},
+            {lat: -3.033, lng: -60.05},
+            {lat: -1.383, lng: -48.483},
+            {lat: -2.433, lng: -54.717},
+            {lat: -2.6, lng: -44.233},
+            {lat: -2.917, lng: -41.75},
+            {lat: -3.367, lng: -64.7},
+            {lat: -3.15, lng: -59.983},
+            {lat: -3.783, lng: -38.533},
+            {lat: -3.667, lng: -69.667},
+            {lat: -5.35, lng: -49.15},
+            {lat: -5.05, lng: -42.817},
+            {lat: -5.2, lng: -37.367},
+            {lat: -5.917, lng: -35.25},
+            {lat: -26.867, lng: -48.65},
+            {lat: -7.633, lng: -72.667},
+            {lat: -6.117, lng: -50},
+            {lat: -7.217, lng: -35.883},
+            {lat: -7.1, lng: -34.867},
+            {lat: -8.116, lng: -34.916},
+            {lat: -8.067, lng: -34.85},
+            {lat: -10, lng: -67.8},
+            {lat: -9.517, lng: -35.783},
+            {lat: -10.983, lng: -37.067},
+            {lat: -10.917, lng: -37.05},
+            {lat: -12.7, lng: -60.1},
+            {lat: -12.9, lng: -38.333},
+            {lat: -14.8, lng: -39.067},
+            {lat: -14.817, lng: -39.033},
+            {lat: -15.65, lng: -56.1},
+            {lat: -15.867, lng: -47.933},
+            {lat: -16.233, lng: -48.967},
+            {lat: -16.633, lng: -49.217},
+            {lat: 17.633, lng: -39.25},
+            {lat: -19.083, lng: -57.5},
+            {lat: -19.783, lng: -47.967},
+            {lat: -19.75, lng: -47.917},
+            {lat: -19.85, lng: -43.95},
+            {lat: -19.933, lng: -43.933},
+            {lat: -20.467, lng: -54.667},
+            {lat: -20.267, lng: -40.283},
+            {lat: -21.133, lng: -47.767},
+            {lat: -21.85, lng: -46.567},
+            {lat: -21.25, lng: -43.767},
+            {lat: -21.75, lng: -41.333},
+            {lat: -22.55, lng: -55.7},
+            {lat: -22.117, lng: -51.383},
+            {lat: -23, lng: -47.133},
+            {lat: -22.317, lng: -49.117},
+            {lat: -22.8, lng: -43.683},
+            {lat: -22.817, lng: -43.25},
+            {lat: -22.867, lng: -43.367},
+            {lat: -22.9, lng: -43.167},
+            {lat: -23.333, lng: -51.133},
+            {lat: -24.083, lng: -54.25},
+            {lat: -23.433, lng: -46.467},
+            {lat: -23.617, lng: -46.65},
+            {lat: -23.233, lng: -45.833},
+            {lat: -25.517, lng: -54.583},
+            {lat: -25.517, lng: -49.167},
+            {lat: -27.667, lng: -46.467},
+            {lat: -48.55, lng: -29.783},
+            {lat: -29.717, lng: -53.7},
+            {lat: -30, lng: -51.183},
+            {lat: -31.35, lng: -54.117},
+
+            {lat: -25.25, lng: -57.517}, //Paraguay
+            {lat: -25.45, lng: -54.833},
+            {lat: -25.75, lng: -56.433},
+
+            {lat: -22.1, lng: -65.6},//Argentina
+            {lat: -23.15, lng: -64.316},
+            {lat: -22.65, lng: -63.817},
+            {lat: -24.383, lng: -65.083},
+            {lat: -24.85, lng: -65.483},
+            {lat: -24.7, lng: -60.583},
+            {lat: -25.733, lng: -54.467},
+            {lat: -26.833, lng: -65.2},
+            {lat: -26.85, lng: -65.099},
+            {lat: -27.767, lng: -64.3},
+            {lat: -26.733, lng: -60.483},
+            {lat: -26.817, lng: -60.45},
+            {lat: -27.45, lng: -59.05},
+            {lat: -26.2, lng: -58.233},
+            {lat: -27.45, lng: -58.767},
+            {lat: -27.367, lng: -55.967},
+            {lat: -29.383, lng: -66.817},
+            {lat: -28.6, lng: -65.767},
+            {lat: -29.9, lng: -63.683},
+            {lat: -29.883, lng: -61.95},
+            {lat: -29.183, lng: -59.7},
+            {lat: -29.783, lng: -57.983},
+            {lat: -29.683, lng: -57.15},
+            {lat: -31.4, lng: -68.417},
+            {lat: -30.367, lng: -66.283},
+            {lat: -31.95, lng: -65.132},
+            {lat: -31.317, lng: -64.217},
+            {lat: -31.667, lng: -63.883},
+            {lat: -31.783, lng: -60.483},
+            {lat: -30.267, lng: -57.65},
+            {lat: -31.3, lng: -58.017},
+            {lat: -33.083, lng: -68.417},
+            {lat: -32.833, lng: -68.783},
+            {lat: -33.267, lng: -66.35},
+            {lat: -33.733, lng: -65.382},
+            {lat: -33.117, lng: -64.233},
+            {lat: -32.7, lng: -62.15},
+            {lat: -32.917, lng: -60.783},
+            {lat: -33, lng: -58.617},
+            {lat: -35.5, lng: -69.583},
+            {lat: -34.583, lng: -68.4},
+            {lat: -35.7, lng: -63.75},
+            {lat: -34.133, lng: -63.367},
+            {lat: -35.867, lng: -61.9},
+            {lat: -34.55, lng: -60.917},
+            {lat: -34.483, lng: -58.617},
+            {lat: -34.6, lng: -58.6},
+            {lat: -34.817, lng: -58.533},
+            {lat: -34.567, lng: -58.417},
+            {lat: -34.583, lng: -58.483},
+            {lat: -34.967, lng: -57.9},
+            {lat: -35.367, lng: -57.283},
+            {lat: -36.567, lng: -64.266},
+            {lat: -36.75, lng: -59.833},
+            {lat: -37.233, lng: -59.25},
+            {lat: -36.35, lng: -57.733},
+            {lat: -38.33, lng: -60.25},
+            {lat: -37.933 , lng: -57.583},
+            {lat: -38.95 , lng: -68.133},
+            {lat: -38.733, lng: -62.167},
+            {lat: -41.15, lng: -71.167},
+            {lat: -40.783, lng: -65.099},
+            {lat: -40.85, lng: -63.017},
+            {lat: -42.933, lng: -71.15},
+            {lat: -43.2, lng: -65.266},
+            {lat: -46.517, lng: -71.017},
+            {lat: -45.783, lng: -67.5},
+            {lat: -50.267, lng: -72.05},
+            {lat: -49.317, lng: -67.75},
+            {lat: -51.617, lng: -69.283},
+            {lat: -53.8, lng: -67.75},
+            {lat: -54.8, lng: -68.317}
+        ]
+    </script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgtKdwvX-RrZgkJL9UDZzOXKPk037ROcs&callback=initMap">
+    </script>
+    <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+    <script type="text/javascript">
+        $.get("{% url 'temperature_chart_json' %}", function (data) {
+            var ctx = $("#temperature-charts").get(0).getContext("2d");
+            new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: false
+                }
+            });
+        });
+        $.get("{% url 'wind_chart_json' %}", function (data) {
+            var ctx = $("#wind-charts").get(0).getContext("2d");
+            new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: false
+                }
+            });
+        });
+        $.get("{% url 'rainfall_chart_json' %}", function (data) {
+            var ctx = $("#rainfall-charts").get(0).getContext("2d");
+            new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: false
+                }
+            });
+        });
+    </script>
 {% endblock %}

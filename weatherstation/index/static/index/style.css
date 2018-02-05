@@ -95,3 +95,9 @@ button:hover {
     margin-left: auto;
     margin-right: auto;
 }
+
+.btn-success {
+    color: #fff;
+    background-color: #0f3b8c;
+    border-color: #0f3b8c;
+}

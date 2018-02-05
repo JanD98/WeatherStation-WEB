@@ -27,5 +27,7 @@ urlpatterns = [
     url(r'^rainfall_chart/json/$', views.rainfall_chart_json,
         name='rainfall_chart_json'),
 
-    url(r'^download/', views.download, name='download')
+    url(r'^download-temp/$', views.downloadtemp, name='downloadtemp'),
+    url(r'^download-rain/$', views.downloadrain, name='downloadrain'),
+    url(r'^download-wind/$', views.downloadwind, name='downloadwind'),
 ]
