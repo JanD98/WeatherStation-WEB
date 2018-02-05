@@ -31,26 +31,37 @@
     </div>
     <script>
 
+        var map;
         function initMap() {
 
-            var map = new google.maps.Map(document.getElementById('map'), {
+            map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 3,
                 center: {lat: -25.45, lng: -54.833},
                 mapTypeId: 'satellite'
             });
 
             // Create an array of alphabetical characters used to label the markers.
-            var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            for(i = 1; i < 150; i++) {
+                labels.push(''+i);
+            }
 
             // Add some markers to the map.
             // Note: The code uses the JavaScript Array.prototype.map() method to
             // create an array of markers based on a given "locations" array.
             // The map() method here has nothing to do with the Google Maps API.
             var markers = locations.map(function (location, i) {
-                return new google.maps.Marker({
+                m = new google.maps.Marker({
                     position: location,
                     label: labels[i % labels.length]
                 });
+
+                m.addListener('click', function() {
+                    map.setZoom(8);
+                    map.setCenter(location);
+                });
+
+                return m;
             });
 
             // Add a marker clusterer to manage the markers.
@@ -253,16 +264,6 @@
     <script type="text/javascript">
         $.get("{% url 'temperature_chart_json' %}", function (data) {
             var ctx = $("#temperature-charts").get(0).getContext("2d");
-            new Chart(ctx, {
-                type: 'line',
-                data: data,
-                options: {
-                    responsive: false
-                }
-            });
-        });
-        $.get("{% url 'wind_chart_json' %}", function (data) {
-            var ctx = $("#wind-charts").get(0).getContext("2d");
             new Chart(ctx, {
                 type: 'line',
                 data: data,
