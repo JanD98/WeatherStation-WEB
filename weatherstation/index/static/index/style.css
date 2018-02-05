@@ -96,6 +96,33 @@ button:hover {
     margin-right: auto;
 }
 
+#maphome {
+    width: 100%;
+    min-height: 500px;
+    height: 84vh;
+    background-color: grey;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+ .transbox {
+    position: absolute;
+    text-align: center;
+    display: table;
+    margin: auto;
+    width: 100%;
+     top: 30%;
+ }
+
+ .transbox p {
+     margin: 5%;
+     font-weight: bold;
+     color: #FFFFFF;
+     font-size:22px;
+     font-family: Verdana;
+ }
+
+
 .btn-success {
     color: #fff;
     background-color: #0f3b8c;
